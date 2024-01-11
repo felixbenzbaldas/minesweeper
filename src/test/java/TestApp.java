@@ -11,8 +11,7 @@ public class TestApp {
     void shouldCreateNewTextfile() throws IOException {
         String pathInputFile = "input.txt";
         String pathOutputFile = "output.txt";
-        File file = new File(pathInputFile);
-        file.createNewFile();
+        new File(pathOutputFile).delete();
 
         App.run(pathInputFile, pathOutputFile);
 
