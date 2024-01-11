@@ -1,3 +1,4 @@
+import org.example.App;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -13,14 +14,9 @@ public class TestApp {
         File file = new File(pathInputFile);
         file.createNewFile();
 
-        run(pathInputFile, pathOutputFile);
+        App.run(pathInputFile, pathOutputFile);
 
         assertThat(new File(pathOutputFile)).exists();
     }
 
-
-    void run(String pathInputFile, String pathOutputFile) throws IOException {
-        File file = new File(pathOutputFile);
-        file.createNewFile();
-    }
 }
