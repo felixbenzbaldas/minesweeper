@@ -11,4 +11,16 @@ public class ApprovalTest {
     public void testFieldWithExactlyOneMine() {
         Approvals.verify(App.getOutput("*"));
     }
+
+    @Test
+    public void testFieldWithNoMine() {
+        Approvals.verify(App.getOutput("."));
+    }
+
+//    @Test
+//    public void testBoardWithTwoFields_oneMine() {
+//        Approvals.verify(App.getOutput("*."));
+//    }
+
+
 }

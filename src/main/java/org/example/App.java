@@ -23,6 +23,25 @@ public class App {
     }
 
     public static String getOutput(String input) {
-        return "*";
+        List<String> lines = List.of(input.split("\n"));
+        return getOutput(lines);
     }
+
+    public static String getOutput(List<String> lines) {
+        int height = lines.size();
+        int width = lines.get(0).length();
+        for (int x = 0; x < width; x++) {
+            String line = lines.get(x);
+            for (int y = 0; y < height; y++) {
+                int minesInTheNeighbourhood = 0;
+            }
+            if (line.charAt(0) == '*') {
+                return "*";
+            } else {
+                return String.valueOf(0);
+            }
+        }
+        return null;
+    }
+
 }
