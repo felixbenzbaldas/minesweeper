@@ -4,8 +4,13 @@ import org.approvaltests.reporters.UseReporter;
 import org.example.App;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.IOException;
+
 @UseReporter(DiffReporter.class)
 public class ApprovalTest {
+
+    public static final String EXAMPLE_OUTPUT_TXT = "example-output.txt";
 
     @Test
     public void testFieldWithExactlyOneMine() {
@@ -47,4 +52,12 @@ public class ApprovalTest {
                 "*\n"));
     }
 
+    @Test
+    void testWithFile() throws IOException {
+        new File(EXAMPLE_OUTPUT_TXT).delete();
+
+        App.main(new String[]{"example-input.txt", EXAMPLE_OUTPUT_TXT});
+
+        Approvals.verify(new File(EXAMPLE_OUTPUT_TXT));
+    }
 }
