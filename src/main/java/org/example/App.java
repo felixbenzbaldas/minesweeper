@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class App {
     public static void run(String pathInputFile, String pathOutputFile) throws IOException {
@@ -41,7 +40,7 @@ public class App {
                     resultLine.append('*');
                 } else {
                     int minesInTheNeighbourhood = 0;
-                    resultLine.append(String.valueOf(minesInTheNeighbourhood));
+                    resultLine.append(minesInTheNeighbourhood);
                 }
             }
             resultLines.add(resultLine.toString());
