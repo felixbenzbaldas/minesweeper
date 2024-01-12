@@ -22,5 +22,29 @@ public class ApprovalTest {
         Approvals.verify(App.getOutput("*."));
     }
 
+    @Test
+    public void testBoard() {
+        Approvals.verify(App.getOutput(
+                "*.\n" +
+                "..\n"));
+    }
+    @Test
+    public void testBoard2() {
+        Approvals.verify(App.getOutput(
+                ".*.\n" +
+                ".*.\n" +
+                ".**\n"));
+    }
+
+    @Test
+    public void testBoard3() {
+        Approvals.verify(App.getOutput(
+                ".\n" +
+                ".\n" +
+                "*\n" +
+                ".\n" +
+                ".\n" +
+                "*\n"));
+    }
 
 }
