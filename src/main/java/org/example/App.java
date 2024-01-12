@@ -35,16 +35,16 @@ public class App {
         List<String> resultLines = new LinkedList<>();
         for (int x = 0; x < width; x++) {
             String inputLine = inputLines.get(x);
-            String resultLine = "";
+            StringBuilder resultLine = new StringBuilder();
             for (int y = 0; y < height; y++) {
                 if (inputLine.charAt(0) == '*') {
-                    resultLine += '*';
+                    resultLine.append('*');
                 } else {
                     int minesInTheNeighbourhood = 0;
-                    resultLine += String.valueOf(minesInTheNeighbourhood);
+                    resultLine.append(String.valueOf(minesInTheNeighbourhood));
                 }
             }
-            resultLines.add(resultLine);
+            resultLines.add(resultLine.toString());
         }
         return String.join("\n", resultLines);
     }
