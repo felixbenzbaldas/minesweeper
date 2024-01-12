@@ -50,7 +50,7 @@ public class Board {
         return numberOfMines;
     }
 
-    private boolean hasMine(int x, int y) {
+    public boolean hasMine(int x, int y) {
         return inputLines.get(y).charAt(x) == '*';
     }
 }
