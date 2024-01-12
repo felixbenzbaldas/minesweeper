@@ -17,10 +17,10 @@ public class ApprovalTest {
         Approvals.verify(App.getOutput("."));
     }
 
-//    @Test
-//    public void testBoardWithTwoFields_oneMine() {
-//        Approvals.verify(App.getOutput("*."));
-//    }
+    @Test
+    public void testBoardWithTwoFields_oneMine() {
+        Approvals.verify(App.getOutput("*."));
+    }
 
 
 }

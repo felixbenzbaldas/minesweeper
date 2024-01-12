@@ -32,14 +32,27 @@ public class App {
         int height = inputLines.size();
         int width = inputLines.get(0).length();
         List<String> resultLines = new LinkedList<>();
-        for (int x = 0; x < width; x++) {
-            String inputLine = inputLines.get(x);
+        for (int y = 0; y < height; y++) {
+            String inputLine = inputLines.get(y);
             StringBuilder resultLine = new StringBuilder();
-            for (int y = 0; y < height; y++) {
-                if (inputLine.charAt(0) == '*') {
+            for (int x = 0; x < width; x++) {
+                if (inputLine.charAt(x) == '*') {
                     resultLine.append('*');
                 } else {
                     int minesInTheNeighbourhood = 0;
+                    for (int nx = x - 1; nx <= x + 1; nx++) {
+                        for (int ny = y - 1; ny <= y + 1; ny++) {
+                            if (nx == x && ny == y) {
+                                // do nothing
+                            } else {
+                                if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                                    if (inputLines.get(ny).charAt(nx) == '*') {
+                                        minesInTheNeighbourhood++;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     resultLine.append(minesInTheNeighbourhood);
                 }
             }
