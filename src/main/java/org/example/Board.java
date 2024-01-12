@@ -5,15 +5,35 @@ import java.util.List;
 
 public class Board {
 
-    private final List<String> inputLines;
+    private List<String> inputLines;
 
-    private final int height;
-    private final int width;
+    private int height;
+    private int width;
 
     public Board(List<String> inputLines) {
         this.inputLines = inputLines;
         height = inputLines.size();
         width = inputLines.get(0).length();
+    }
+
+    public static Board createBoard(int width, int height) {
+        return createBoard(width, height, 0);
+    }
+
+    public static Board createBoard(int width, int height, int numberOfMines) {
+        List<String> lines = new LinkedList<>();
+        for (int x = 0; x < width; x++) {
+            StringBuilder line = new StringBuilder();
+            for (int y = 0; y < height; y++) {
+                if (numberOfMines > 0) {
+                    line.append('*');
+                } else {
+                    line.append('.');
+                }
+            }
+            lines.add(line.toString());
+        }
+        return new Board(lines);
     }
 
     public String getCheatsheet() {
@@ -57,5 +77,9 @@ public class Board {
     @Override
     public String toString() {
         return getCheatsheet().replaceFirst("d", ".");
+    }
+
+    public void setMineAt(int x, int y) {
+
     }
 }
