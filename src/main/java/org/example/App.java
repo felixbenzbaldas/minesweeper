@@ -8,6 +8,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class App {
+
+    public static void main(String[] args) throws IOException {
+        run(args[0], args[1]);
+    }
+
     public static void run(String pathInputFile, String pathOutputFile) throws IOException {
         String input = getText(new File(pathInputFile));
         File file = new File(pathOutputFile);
