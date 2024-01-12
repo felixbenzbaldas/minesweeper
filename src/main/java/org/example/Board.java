@@ -1,7 +1,6 @@
 package org.example;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Board {
 
@@ -9,6 +8,8 @@ public class Board {
 
     private int height;
     private int width;
+
+    private Set<Map.Entry<Integer, Integer>> mines = new HashSet<>();
 
     public Board(List<String> inputLines) {
         this.inputLines = inputLines;
@@ -71,7 +72,7 @@ public class Board {
     }
 
     public boolean hasMine(int x, int y) {
-        return inputLines.get(y).charAt(x) == '*';
+        return inputLines.get(y).charAt(x) == '*' || mines.contains(Map.entry(x, y));
     }
 
     @Override
@@ -80,6 +81,6 @@ public class Board {
     }
 
     public void setMineAt(int x, int y) {
-
+        mines.add(Map.entry(x, y));
     }
 }

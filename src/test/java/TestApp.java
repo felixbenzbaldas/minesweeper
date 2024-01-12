@@ -60,5 +60,4 @@ public class TestApp {
         assertTrue(board.hasMine(1, 1));
     }
 
-
 }
