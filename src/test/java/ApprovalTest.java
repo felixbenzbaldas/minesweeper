@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @UseReporter(DiffReporter.class)
 public class ApprovalTest {
@@ -14,42 +15,42 @@ public class ApprovalTest {
 
     @Test
     public void testFieldWithExactlyOneMine() {
-        Approvals.verify(App.getOutput("*"));
+        Approvals.verify(App.getOutput(List.of("*")));
     }
 
     @Test
     public void testFieldWithNoMine() {
-        Approvals.verify(App.getOutput("."));
+        Approvals.verify(App.getOutput(List.of(".")));
     }
 
     @Test
     public void testBoardWithTwoFields_oneMine() {
-        Approvals.verify(App.getOutput("*."));
+        Approvals.verify(App.getOutput(List.of("*.")));
     }
 
     @Test
     public void testBoard() {
-        Approvals.verify(App.getOutput(
-                "*.\n" +
-                "..\n"));
+        Approvals.verify(App.getOutput(List.of(
+            "*.",
+            "..")));
     }
     @Test
     public void testBoard2() {
-        Approvals.verify(App.getOutput(
-                ".*.\n" +
-                ".*.\n" +
-                ".**\n"));
+        Approvals.verify(App.getOutput(List.of(
+            ".*.",
+            ".*.",
+            ".**")));
     }
 
     @Test
     public void testBoard3() {
-        Approvals.verify(App.getOutput(
-                ".\n" +
-                ".\n" +
-                "*\n" +
-                ".\n" +
-                ".\n" +
-                "*\n"));
+        Approvals.verify(App.getOutput(List.of(
+            ".",
+            ".",
+            "*",
+            ".",
+            ".",
+            "*")));
     }
 
     @Test
