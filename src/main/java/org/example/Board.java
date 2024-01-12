@@ -53,4 +53,9 @@ public class Board {
     public boolean hasMine(int x, int y) {
         return inputLines.get(y).charAt(x) == '*';
     }
+
+    @Override
+    public String toString() {
+        return getCheatsheet().replaceFirst("d", ".");
+    }
 }
