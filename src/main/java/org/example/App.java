@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class App {
     public static void run(String pathInputFile, String pathOutputFile) throws IOException {
@@ -27,21 +29,24 @@ public class App {
         return getOutput(lines);
     }
 
-    public static String getOutput(List<String> lines) {
-        int height = lines.size();
-        int width = lines.get(0).length();
+    public static String getOutput(List<String> inputLines) {
+        int height = inputLines.size();
+        int width = inputLines.get(0).length();
+        List<String> resultLines = new LinkedList<>();
         for (int x = 0; x < width; x++) {
-            String line = lines.get(x);
+            String inputLine = inputLines.get(x);
+            String resultLine = "";
             for (int y = 0; y < height; y++) {
-                int minesInTheNeighbourhood = 0;
+                if (inputLine.charAt(0) == '*') {
+                    resultLine += '*';
+                } else {
+                    int minesInTheNeighbourhood = 0;
+                    resultLine += String.valueOf(minesInTheNeighbourhood);
+                }
             }
-            if (line.charAt(0) == '*') {
-                return "*";
-            } else {
-                return String.valueOf(0);
-            }
+            resultLines.add(resultLine);
         }
-        return null;
+        return String.join("\n", resultLines);
     }
 
 }
