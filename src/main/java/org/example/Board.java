@@ -69,9 +69,20 @@ public class Board {
         return mines.contains(new Coordinates(x, y));
     }
 
-    @Override
-    public String toString() {
-        return getCheatsheet().replaceFirst("d", ".");
+    public String printBoard() {
+        List<String> resultLines = new LinkedList<>();
+        for (int y = 0; y < height; y++) {
+            StringBuilder resultLine = new StringBuilder();
+            for (int x = 0; x < width; x++) {
+                if (hasMine(x, y)) {
+                    resultLine.append('*');
+                } else {
+                    resultLine.append('.');
+                }
+            }
+            resultLines.add(resultLine.toString());
+        }
+        return String.join("\n", resultLines);
     }
 
     public void setMineAt(int x, int y) {
