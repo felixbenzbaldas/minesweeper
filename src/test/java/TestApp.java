@@ -1,6 +1,7 @@
 import org.approvaltests.Approvals;
 import org.example.App;
 import org.example.Board;
+import org.example.Coordinates;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -83,8 +84,8 @@ public class TestApp {
 
         for (int i = 0; i < 1000; i++) {
             Board board = Board.createBoard(1, 2, 1);
-            Map.Entry<Integer, Integer> minePosition = board.getMines().stream().findAny().get();
-            if (minePosition.getValue().equals(0)) {
+            Coordinates minePosition = board.getMines().stream().findAny().get();
+            if (minePosition.equals(new Coordinates(0, 0))) {
                 hits++;
             }
         }

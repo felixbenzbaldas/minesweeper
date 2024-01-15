@@ -7,7 +7,7 @@ public class Board {
     private int height;
     private int width;
 
-    private Set<Map.Entry<Integer, Integer>> mines = new HashSet<>();
+    private Set<Coordinates> mines = new HashSet<>();
 
     public Board(List<String> inputLines) {
         height = inputLines.size();
@@ -15,7 +15,7 @@ public class Board {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (inputLines.get(y).charAt(x) == '*') {
-                    mines.add(Map.entry(x, y));
+                    mines.add(new Coordinates(x, y));
                 }
             }
         }
@@ -29,10 +29,10 @@ public class Board {
     public static Board createBoard(int width, int height, int numberOfMines) {
         Board board = new Board(width, height);
         while (board.getNumberOfMines() < numberOfMines) {
-            Map.Entry<Integer, Integer> freeField = board.getFreeFields().stream().findAny().get();
-            List<Map.Entry<Integer, Integer>> freeFieldsList = new ArrayList<>(board.getFreeFields());
-            Map.Entry<Integer, Integer> newMine = freeFieldsList.get((int) (Math.random() * freeFieldsList.size()));
-            board.setMineAt(newMine.getKey(), newMine.getValue());
+            Coordinates freeField = board.getFreeFields().stream().findAny().get();
+            List<Coordinates> freeFieldsList = new ArrayList<>(board.getFreeFields());
+            Coordinates newMine = freeFieldsList.get((int) (Math.random() * freeFieldsList.size()));
+            board.setMineAt(newMine.getX(), newMine.getY());
         }
         return board;
     }
@@ -55,16 +55,10 @@ public class Board {
 
     private int getNumberOfAdjacentMines(int column, int row) {
         int numberOfMines = 0;
-        for (int x = column - 1; x <= column + 1; x++) {
-            for (int y = row - 1; y <= row + 1; y++) {
-                if (x == column && y == row) {
-                    // do nothing
-                } else {
-                    if (x >= 0 && x < width && y >= 0 && y < height) {
-                        if (hasMine(x, y)) {
-                            numberOfMines++;
-                        }
-                    }
+        for (Coordinates coordinates : new Coordinates(column, row).getAdjacentCoordinates()) {
+            if (coordinates.getX() >= 0 && coordinates.getX() < width && coordinates.getY() >= 0 && coordinates.getY() < height) {
+                if (hasMine(coordinates.getX(), coordinates.getY())) {
+                    numberOfMines++;
                 }
             }
         }
@@ -72,7 +66,7 @@ public class Board {
     }
 
     public boolean hasMine(int x, int y) {
-        return mines.contains(Map.entry(x, y));
+        return mines.contains(new Coordinates(x, y));
     }
 
     @Override
@@ -81,26 +75,26 @@ public class Board {
     }
 
     public void setMineAt(int x, int y) {
-        mines.add(Map.entry(x, y));
+        mines.add(new Coordinates(x, y));
     }
 
     public int getNumberOfMines() {
         return mines.size();
     }
 
-    public Set<Map.Entry<Integer, Integer>> getFreeFields() {
-        HashSet<Map.Entry<Integer, Integer>> freeFields = new HashSet<>();
+    public Set<Coordinates> getFreeFields() {
+        HashSet<Coordinates> freeFields = new HashSet<>();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (!hasMine(x, y)) {
-                    freeFields.add(Map.entry(x, y));
+                    freeFields.add(new Coordinates(x, y));
                 }
             }
         }
         return freeFields;
     }
 
-    public Set<Map.Entry<Integer, Integer>> getMines() {
+    public Set<Coordinates> getMines() {
         return mines;
     }
 }
