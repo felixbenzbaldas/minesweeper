@@ -21,24 +21,23 @@ public class Board {
         }
     }
 
-    public static Board createBoard(int width, int height) {
-        return createBoard(width, height, 0);
+    public Board(int width, int height)  {
+        this.width = width;
+        this.height = height;
     }
 
     public static Board createBoard(int width, int height, int numberOfMines) {
-        List<String> lines = new LinkedList<>();
+        Board board = new Board(width, height);
+        board.width = width;
+        board.height = height;
         for (int x = 0; x < width; x++) {
-            StringBuilder line = new StringBuilder();
             for (int y = 0; y < height; y++) {
                 if (numberOfMines > 0) {
-                    line.append('*');
-                } else {
-                    line.append('.');
+                    board.setMineAt(x, y);
                 }
             }
-            lines.add(line.toString());
         }
-        return new Board(lines);
+        return board;
     }
 
     public String getCheatsheet() {

@@ -45,7 +45,7 @@ public class TestApp {
 
     @Test
     void canSetMineInBoard() {
-        Board board = Board.createBoard(10, 10);
+        Board board = new Board(10, 10);
 
         board.setMineAt(0, 0);
 
@@ -53,7 +53,7 @@ public class TestApp {
     }
     @Test
     void canSetMineInBoard2() {
-        Board board = Board.createBoard(10, 10);
+        Board board = new Board(10, 10);
 
         board.setMineAt(1, 1);
 
