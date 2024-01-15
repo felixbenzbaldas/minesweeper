@@ -4,17 +4,21 @@ import java.util.*;
 
 public class Board {
 
-    private List<String> inputLines;
-
     private int height;
     private int width;
 
     private Set<Map.Entry<Integer, Integer>> mines = new HashSet<>();
 
     public Board(List<String> inputLines) {
-        this.inputLines = inputLines;
         height = inputLines.size();
         width = inputLines.get(0).length();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (inputLines.get(y).charAt(x) == '*') {
+                    mines.add(Map.entry(x, y));
+                }
+            }
+        }
     }
 
     public static Board createBoard(int width, int height) {
@@ -72,7 +76,7 @@ public class Board {
     }
 
     public boolean hasMine(int x, int y) {
-        return inputLines.get(y).charAt(x) == '*' || mines.contains(Map.entry(x, y));
+        return mines.contains(Map.entry(x, y));
     }
 
     @Override
