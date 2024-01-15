@@ -30,7 +30,9 @@ public class Board {
         Board board = new Board(width, height);
         while (board.getNumberOfMines() < numberOfMines) {
             Map.Entry<Integer, Integer> freeField = board.getFreeFields().stream().findAny().get();
-            board.setMineAt(freeField.getKey(), freeField.getValue());
+            List<Map.Entry<Integer, Integer>> freeFieldsList = new ArrayList<>(board.getFreeFields());
+            Map.Entry<Integer, Integer> newMine = freeFieldsList.get((int) (Math.random() * freeFieldsList.size()));
+            board.setMineAt(newMine.getKey(), newMine.getValue());
         }
         return board;
     }
@@ -96,5 +98,9 @@ public class Board {
             }
         }
         return freeFields;
+    }
+
+    public Set<Map.Entry<Integer, Integer>> getMines() {
+        return mines;
     }
 }

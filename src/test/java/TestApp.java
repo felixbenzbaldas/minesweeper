@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -73,5 +74,22 @@ public class TestApp {
         Board board = new Board(2, 2);
 
         assertThat(board.getFreeFields()).hasSize(4);
+    }
+
+
+    @Test
+    void minesArePositionedByRandom() {
+        int hits = 0;
+
+        for (int i = 0; i < 1000; i++) {
+            Board board = Board.createBoard(1, 2, 1);
+            Map.Entry<Integer, Integer> minePosition = board.getMines().stream().findAny().get();
+            if (minePosition.getValue().equals(0)) {
+                hits++;
+            }
+        }
+
+        assertThat(hits).isGreaterThan(250);
+        assertThat(hits).isLessThanOrEqualTo(750);
     }
 }
