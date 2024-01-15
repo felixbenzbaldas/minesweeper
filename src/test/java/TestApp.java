@@ -60,4 +60,18 @@ public class TestApp {
         assertTrue(board.hasMine(1, 1));
     }
 
+    @Test
+    void canCreate4x4BoardWithTwoMines() {
+        Board board = Board.createBoard(2, 2, 2);
+
+        assertThat(board.getNumberOfMines()).isEqualTo(2);
+    }
+
+
+    @Test
+    void empty2x2BoardHasFourFreeFields() {
+        Board board = new Board(2, 2);
+
+        assertThat(board.getFreeFields()).hasSize(4);
+    }
 }

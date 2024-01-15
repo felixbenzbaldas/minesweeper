@@ -28,14 +28,9 @@ public class Board {
 
     public static Board createBoard(int width, int height, int numberOfMines) {
         Board board = new Board(width, height);
-        board.width = width;
-        board.height = height;
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                if (numberOfMines > 0) {
-                    board.setMineAt(x, y);
-                }
-            }
+        while (board.getNumberOfMines() < numberOfMines) {
+            Map.Entry<Integer, Integer> freeField = board.getFreeFields().stream().findAny().get();
+            board.setMineAt(freeField.getKey(), freeField.getValue());
         }
         return board;
     }
@@ -85,5 +80,21 @@ public class Board {
 
     public void setMineAt(int x, int y) {
         mines.add(Map.entry(x, y));
+    }
+
+    public int getNumberOfMines() {
+        return mines.size();
+    }
+
+    public Set<Map.Entry<Integer, Integer>> getFreeFields() {
+        HashSet<Map.Entry<Integer, Integer>> freeFields = new HashSet<>();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (!hasMine(x, y)) {
+                    freeFields.add(Map.entry(x, y));
+                }
+            }
+        }
+        return freeFields;
     }
 }
