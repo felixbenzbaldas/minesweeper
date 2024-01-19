@@ -26,12 +26,22 @@ public class Board {
         this.height = height;
     }
 
-    public static Board createBoard(int width, int height, int numberOfMines) {
+    public Set<Coordinates> getAllFields() {
+        HashSet<Coordinates> fields = new HashSet<>();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                fields.add(new Coordinates(x, y));
+            }
+        }
+        return fields;
+    }
+
+    public static Board createBoardAndDistributeMinesByRandom(int width, int height, int numberOfMines) {
         Board board = new Board(width, height);
+        List<Coordinates> freeFields = new ArrayList<>(board.getAllFields());
         while (board.getNumberOfMines() < numberOfMines) {
-            Coordinates freeField = board.getFreeFields().stream().findAny().get();
-            List<Coordinates> freeFieldsList = new ArrayList<>(board.getFreeFields());
-            Coordinates newMine = freeFieldsList.get((int) (Math.random() * freeFieldsList.size()));
+            Coordinates newMine = freeFields.get((int) (Math.random() * freeFields.size()));
+            freeFields.remove(newMine);
             board.setMineAt(newMine.getX(), newMine.getY());
         }
         return board;
@@ -91,18 +101,6 @@ public class Board {
 
     public int getNumberOfMines() {
         return mines.size();
-    }
-
-    public Set<Coordinates> getFreeFields() {
-        HashSet<Coordinates> freeFields = new HashSet<>();
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                if (!hasMine(x, y)) {
-                    freeFields.add(new Coordinates(x, y));
-                }
-            }
-        }
-        return freeFields;
     }
 
     public Set<Coordinates> getMines() {

@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -26,21 +25,21 @@ public class TestApp {
 
     @Test
     void canCreateBoardFullOfMines() {
-        Board board = Board.createBoard(1, 1, 1);
+        Board board = Board.createBoardAndDistributeMinesByRandom(1, 1, 1);
 
         assertTrue(board.hasMine(0, 0));
     }
 
     @Test
     void canCreateBoardFullOfMines2() {
-        Board board = Board.createBoard(2, 2, 4);
+        Board board = Board.createBoardAndDistributeMinesByRandom(2, 2, 4);
 
-        Approvals.verify(board);
+        Approvals.verify(board.printBoard());
     }
 
     @Test
     void canCreateBoardWithoutMines() {
-        Board board = Board.createBoard(1, 1, 0);
+        Board board = Board.createBoardAndDistributeMinesByRandom(1, 1, 0);
 
         assertFalse(board.hasMine(0, 0));
     }
@@ -53,6 +52,7 @@ public class TestApp {
 
         assertTrue(board.hasMine(0, 0));
     }
+
     @Test
     void canSetMineInBoard2() {
         Board board = new Board(10, 10);
@@ -64,17 +64,9 @@ public class TestApp {
 
     @Test
     void canCreate4x4BoardWithTwoMines() {
-        Board board = Board.createBoard(2, 2, 2);
+        Board board = Board.createBoardAndDistributeMinesByRandom(2, 2, 2);
 
         assertThat(board.getNumberOfMines()).isEqualTo(2);
-    }
-
-
-    @Test
-    void empty2x2BoardHasFourFreeFields() {
-        Board board = new Board(2, 2);
-
-        assertThat(board.getFreeFields()).hasSize(4);
     }
 
 
@@ -83,7 +75,7 @@ public class TestApp {
         int hits = 0;
 
         for (int i = 0; i < 1000; i++) {
-            Board board = Board.createBoard(1, 2, 1);
+            Board board = Board.createBoardAndDistributeMinesByRandom(1, 2, 1);
             Coordinates minePosition = board.getMines().stream().findAny().get();
             if (minePosition.equals(new Coordinates(0, 0))) {
                 hits++;
