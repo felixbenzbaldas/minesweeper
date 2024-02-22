@@ -40,8 +40,9 @@ public class Board {
         Board board = new Board(width, height);
         List<Coordinates> freeFields = new ArrayList<>(board.getAllFields());
         while (board.getNumberOfMines() < numberOfMines) {
-            Coordinates newMine = freeFields.get((int) (Math.random() * freeFields.size()));
-            freeFields.remove(newMine);
+            int index = (int) (Math.random() * freeFields.size());
+            Coordinates newMine = freeFields.get(index);
+            freeFields.remove(index);
             board.setMineAt(newMine.getX(), newMine.getY());
         }
         return board;
